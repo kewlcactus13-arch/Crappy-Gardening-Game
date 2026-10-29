@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://dc021u1sempi7"]
+
+[ext_resource type="Texture2D" uid="uid://cfmcea7dqa3mv" path="res://Images/Marker.png" id="1_pehqq"]
+[ext_resource type="Texture2D" uid="uid://bwfy23bk7yg87" path="res://Images/Plant.png" id="1_yxyum"]
+[ext_resource type="Script" uid="uid://ci1r0h34xwg5d" path="res://Scripts/PlantingLogic.gd" id="2_yxyum"]
+[ext_resource type="AudioStream" uid="uid://c463qdpw7823a" path="res://Sounds/608646__theplax__crunch-2_Crushed.wav" id="3_yxyum"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31sbn"]
+radius = 440.00003
+height = 1480.0001
+
+[sub_resource type="Animation" id="Animation_c14lv"]
+resource_name = "Grow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.25, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_yxyum")]
+}
+
+[sub_resource type="Animation" id="Animation_yxyum"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath(".:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_yxyum")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pehqq"]
+_data = {
+&"Grow": SubResource("Animation_c14lv"),
+&"RESET": SubResource("Animation_yxyum")
+}
+
+[sub_resource type="Gradient" id="Gradient_c14lv"]
+colors = PackedColorArray(0.29435766, 0.12150035, 0, 1, 0.6156863, 0.28235295, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" unique_id=823208212]
+use_parent_material = true
+position = Vector2(0, -33)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_pehqq")
+offset = Vector2(0, -104.999985)
+script = ExtResource("2_yxyum")
+
+[node name="Mound" type="Area2D" parent="." unique_id=1503879051]
+position = Vector2(6.7762636e-21, -470.00012)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mound" unique_id=1995970638]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("CapsuleShape2D_31sbn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=634269762]
+libraries/ = SubResource("AnimationLibrary_pehqq")
+speed_scale = 0.1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=721066941]
+scale = Vector2(3.4000034, 2.6)
+amount = 20
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(1, -300)
+gravity = Vector2(0, 300)
+initial_velocity_min = 200.0
+initial_velocity_max = 1000.0
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_c14lv")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1112663539]
+stream = ExtResource("3_yxyum")
+
+[connection signal="area_entered" from="Mound" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Mound" to="." method="_on_area_2d_body_entered"]

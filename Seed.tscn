@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dt2la48opa4be"]
+
+[ext_resource type="Texture2D" uid="uid://be5uh0uk1454g" path="res://Images/Seed.png" id="1_hjj4x"]
+[ext_resource type="Script" uid="uid://devevhh2qw8t8" path="res://Scripts/DraggableObj.gd" id="2_0i3lm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31sbn"]
+radius = 590.3389
+
+[node name="Seed" type="Sprite2D" unique_id=1607662985]
+use_parent_material = true
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_hjj4x")
+script = ExtResource("2_0i3lm")
+
+[node name="Button" type="Button" parent="." unique_id=732541186]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Seed" type="Area2D" parent="." unique_id=1838994698]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seed" unique_id=777542390]
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("CircleShape2D_31sbn")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="area_entered" from="Seed" to="." method="_on_seed_area_entered"]

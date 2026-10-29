@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dwmh16n70oni4"]
+
+[ext_resource type="PackedScene" uid="uid://dt2la48opa4be" path="res://Seed.tscn" id="1_glv2v"]
+[ext_resource type="Material" uid="uid://bv27umr5ixf1k" path="res://ShaderScripts/Shaders/Squiggle.tres" id="1_r0du0"]
+[ext_resource type="Script" uid="uid://btnthhfpobtas" path="res://Scripts/PlantedPlants.gd" id="2_03owx"]
+[ext_resource type="Texture2D" uid="uid://cryviwql8egh4" path="res://Images/DirtMound.png" id="3_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://dc021u1sempi7" path="res://Mound.tscn" id="4_cm0pq"]
+[ext_resource type="Material" uid="uid://bu11i7wytycte" path="res://ShaderScripts/Shaders/Blur.tres" id="5_3dxm6"]
+[ext_resource type="Texture2D" uid="uid://csk8tadj2knwc" path="res://Images/Sky.png" id="5_fos0i"]
+[ext_resource type="AudioStream" uid="uid://dsv5daapgthyk" path="res://Sounds/395131__mham05__naure-feild-recording-cukoo-high-gain_Crushed.wav" id="7_lgr22"]
+[ext_resource type="FontFile" uid="uid://g2ku45l8jkun" path="res://IMPACTED.ttf" id="7_trn2v"]
+[ext_resource type="Script" uid="uid://dyhnmja2gpqh7" path="res://Scripts/PlantedPlantsCounter.gd" id="9_wkp8b"]
+
+[node name="Root" type="Node2D" unique_id=285554685]
+material = ExtResource("1_r0du0")
+script = ExtResource("2_03owx")
+
+[node name="DirtMound2" type="Sprite2D" parent="." unique_id=693453672]
+modulate = Color(0.6452097, 0.6452098, 0.6452097, 1)
+texture_filter = 1
+position = Vector2(400, 560)
+scale = Vector2(1.6, 0.9603931)
+texture = ExtResource("3_cm0pq")
+
+[node name="Seed" parent="." unique_id=1607662985 instance=ExtResource("1_glv2v")]
+position = Vector2(403, 424)
+
+[node name="Seed2" parent="." unique_id=1769646290 instance=ExtResource("1_glv2v")]
+position = Vector2(403, 424)
+
+[node name="Seed3" parent="." unique_id=1154637281 instance=ExtResource("1_glv2v")]
+position = Vector2(403, 424)
+
+[node name="Seed4" parent="." unique_id=1890843347 instance=ExtResource("1_glv2v")]
+position = Vector2(403, 424)
+
+[node name="Seed5" parent="." unique_id=1814193698 instance=ExtResource("1_glv2v")]
+position = Vector2(403, 424)
+
+[node name="Node" type="Node" parent="." unique_id=959229849]
+
+[node name="Sprite2D" parent="Node" unique_id=823208212 instance=ExtResource("4_cm0pq")]
+position = Vector2(122.00001, 713)
+
+[node name="Sprite2D2" parent="Node" unique_id=1807017327 instance=ExtResource("4_cm0pq")]
+position = Vector2(260, 713)
+
+[node name="Sprite2D3" parent="Node" unique_id=1714561142 instance=ExtResource("4_cm0pq")]
+position = Vector2(405, 713)
+
+[node name="Sprite2D4" parent="Node" unique_id=264561505 instance=ExtResource("4_cm0pq")]
+position = Vector2(560, 713)
+
+[node name="Sprite2D5" parent="Node" unique_id=792366774 instance=ExtResource("4_cm0pq")]
+position = Vector2(709, 713)
+
+[node name="Sky" type="Sprite2D" parent="." unique_id=1914192684]
+z_index = -3
+texture_filter = 1
+material = ExtResource("5_3dxm6")
+position = Vector2(400, 400)
+scale = Vector2(0.79999995, 0.79999995)
+texture = ExtResource("5_fos0i")
+
+[node name="Label" type="Label" parent="Sky" unique_id=16048903]
+material = ExtResource("1_r0du0")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -520.0
+offset_top = -500.0
+offset_right = -480.0
+offset_bottom = -477.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_trn2v")
+theme_override_font_sizes/font_size = 64
+text = "Seeds Planted: 0"
+horizontal_alignment = 1
+script = ExtResource("9_wkp8b")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1164488491]
+stream = ExtResource("7_lgr22")
+autoplay = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1421736351]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
